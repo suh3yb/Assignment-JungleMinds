@@ -1,7 +1,7 @@
 {
-  "name": "gatsby-starter-hello-world",
+  "name": "Assignment-JungleMinds",
   "private": true,
-  "description": "A simplified bare-bones starter for Gatsby",
+  "description": "An assignment for JungleMinds created using Gatsby and Swapi API",
   "version": "0.1.0",
   "license": "MIT",
   "scripts": {
@@ -14,9 +14,20 @@
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
   },
   "dependencies": {
+    "babel-plugin-styled-components": "^1.10.7",
     "gatsby": "^2.21.13",
+    "gatsby-image": "^2.4.2",
+    "gatsby-plugin-react-helmet": "^3.3.1",
+    "gatsby-plugin-sharp": "^2.6.1",
+    "gatsby-plugin-styled-components": "^3.3.1",
+    "gatsby-source-filesystem": "^2.3.1",
+    "gatsby-source-graphql": "^2.5.1",
+    "gatsby-transformer-sharp": "^2.5.1",
+    "moment": "^2.25.3",
     "react": "^16.12.0",
-    "react-dom": "^16.12.0"
+    "react-dom": "^16.12.0",
+    "react-helmet": "^6.0.0",
+    "styled-components": "^5.1.0"
   },
   "devDependencies": {
     "prettier": "2.0.5"
