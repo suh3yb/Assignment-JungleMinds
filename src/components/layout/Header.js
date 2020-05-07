@@ -26,7 +26,7 @@ const Nav = styled.nav`
   justify-content: space-between;
 
   & .active {
-    color: yellow;
+    color: orange;
   }
 
   @media (max-width: 768px) {

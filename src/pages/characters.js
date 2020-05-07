@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { graphql } from 'gatsby';
 import styled from 'styled-components';
 
 import Layout from '../components/layout/Layout';
 import SEO from '../components/SEO';
+import SearchInput from '../components/SearchInput';
 import Card from '../components/card/Card';
 import CardContent from '../components/card/CardContent';
 import PageNav from '../components/PageNav';
@@ -19,16 +20,37 @@ const CardsContainer = styled.div`
 const CharactersPage = ({ data }) => {
   const DISPLAY_COUNT = 8;
   const [peopleToDisplay, setPeopleToDisplay] = useState([]);
+  const [searchInput, setSearchInput] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+  const [pageCount, setPageCount] = useState(
+    Math.ceil(data.swapi.allPersons.length / DISPLAY_COUNT)
+  );
 
   useEffect(() => {
-    setPeopleToDisplay(
-      data.swapi.allPersons.slice(
-        (currentPage - 1) * DISPLAY_COUNT,
-        currentPage * DISPLAY_COUNT
-      )
-    );
-  }, [currentPage]);
+    if (searchInput) {
+      const filteredCharacters = data.swapi.allPersons.filter(person =>
+        person.name.toLowerCase().includes(searchInput)
+      );
+      setPeopleToDisplay(
+        filteredCharacters.slice(
+          (currentPage - 1) * DISPLAY_COUNT,
+          currentPage * DISPLAY_COUNT
+        )
+      );
+      setPageCount(Math.ceil(filteredCharacters.length / DISPLAY_COUNT));
+    } else {
+      setPeopleToDisplay(
+        data.swapi.allPersons.slice(
+          (currentPage - 1) * DISPLAY_COUNT,
+          currentPage * DISPLAY_COUNT
+        )
+      );
+    }
+  }, [currentPage, searchInput, data.swapi.allPersons]);
+
+  const handleInputChange = event => {
+    setSearchInput(event.target.value);
+  };
 
   const pageNavClickHandler = pageNum => {
     setCurrentPage(pageNum);
@@ -37,6 +59,11 @@ const CharactersPage = ({ data }) => {
   return (
     <Layout>
       <SEO title="Characters" />
+      <SearchInput
+        searchFor="Characters"
+        value={searchInput}
+        onChange={handleInputChange}
+      />
       <CardsContainer>
         {peopleToDisplay.map(person => {
           return (
@@ -57,7 +84,7 @@ const CharactersPage = ({ data }) => {
         })}
       </CardsContainer>
       <PageNav
-        pageCount={data.swapi.allPersons.length / DISPLAY_COUNT}
+        pageCount={pageCount}
         currentPage={currentPage}
         clickHandler={pageNavClickHandler}
       />

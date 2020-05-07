@@ -43,11 +43,7 @@ const PageNav = ({ pageCount, currentPage, clickHandler }) => {
     let buttons = [];
 
     if (currentPage > 3 && currentPage + 2 <= pageCount) {
-      for (
-        let i = currentPage - 2;
-        i <= (currentPage + 2 > pageCount ? pageCount : currentPage + 2);
-        i++
-      ) {
+      for (let i = currentPage - 2; i <= currentPage + 2; i++) {
         buttons.push(
           <PageItem
             key={i}
@@ -59,8 +55,21 @@ const PageNav = ({ pageCount, currentPage, clickHandler }) => {
           </PageItem>
         );
       }
-    } else if (currentPage <= 3) {
+    } else if (currentPage <= 3 && pageCount > 4) {
       for (let i = 1; i <= 5; i++) {
+        buttons.push(
+          <PageItem
+            key={i}
+            onClick={event => {
+              clickHandler(parseInt(event.target.innerText));
+            }}
+          >
+            {i}
+          </PageItem>
+        );
+      }
+    } else if (pageCount < 5) {
+      for (let i = 1; i < pageCount; i++) {
         buttons.push(
           <PageItem
             key={i}
@@ -88,7 +97,7 @@ const PageNav = ({ pageCount, currentPage, clickHandler }) => {
     }
 
     setPageButtons(buttons);
-  }, [currentPage]);
+  }, [currentPage, pageCount, clickHandler]);
 
   return (
     <Container>

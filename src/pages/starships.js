@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import Layout from '../components/layout/Layout';
 import SEO from '../components/SEO';
+import SearchInput from '../components/SearchInput';
 import Card from '../components/card/Card';
 import CardContent from '../components/card/CardContent';
 import PageNav from '../components/PageNav';
@@ -18,18 +19,38 @@ const CardsContainer = styled.div`
 
 const StarshipsPage = ({ data }) => {
   const DISPLAY_COUNT = 8;
-  const pageCount = Math.ceil(data.swapi.allStarships.length / DISPLAY_COUNT);
   const [shipsToDisplay, setShipsToDisplay] = useState([]);
+  const [searchInput, setSearchInput] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+  const [pageCount, setPageCount] = useState(
+    Math.ceil(data.swapi.allStarships.length / DISPLAY_COUNT)
+  );
 
   useEffect(() => {
-    setShipsToDisplay(
-      data.swapi.allStarships.slice(
-        (currentPage - 1) * DISPLAY_COUNT,
-        currentPage * DISPLAY_COUNT
-      )
-    );
-  }, [currentPage]);
+    if (searchInput) {
+      const filteredShips = data.swapi.allStarships.filter(starship =>
+        starship.name.toLowerCase().includes(searchInput)
+      );
+      setShipsToDisplay(
+        filteredShips.slice(
+          (currentPage - 1) * DISPLAY_COUNT,
+          currentPage * DISPLAY_COUNT
+        )
+      );
+      setPageCount(Math.ceil(filteredShips.length / DISPLAY_COUNT));
+    } else {
+      setShipsToDisplay(
+        data.swapi.allStarships.slice(
+          (currentPage - 1) * DISPLAY_COUNT,
+          currentPage * DISPLAY_COUNT
+        )
+      );
+    }
+  }, [currentPage, searchInput, data.swapi.allStarships]);
+
+  const handleInputChange = event => {
+    setSearchInput(event.target.value);
+  };
 
   const pageNavClickHandler = pageNum => {
     setCurrentPage(pageNum);
@@ -38,6 +59,11 @@ const StarshipsPage = ({ data }) => {
   return (
     <Layout>
       <SEO title="Characters" />
+      <SearchInput
+        searchFor="Characters"
+        value={searchInput}
+        onChange={handleInputChange}
+      />
       <CardsContainer>
         {shipsToDisplay.map(starship => {
           return (
