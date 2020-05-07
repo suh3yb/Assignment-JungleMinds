@@ -19,6 +19,7 @@ const Film = ({ data }) => {
         <Card
           fullPage
           url={''}
+          imageFileName={film.episodeId.toString()}
           title={film.title}
           director={film.director}
           date={film.releaseDate}

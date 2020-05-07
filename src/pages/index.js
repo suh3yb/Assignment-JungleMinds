@@ -23,6 +23,7 @@ const IndexPage = ({ data }) => {
           return (
             <Card
               key={film.title}
+              imageFileName={film.episodeId.toString()}
               title={film.title}
               director={film.director}
               date={film.releaseDate}

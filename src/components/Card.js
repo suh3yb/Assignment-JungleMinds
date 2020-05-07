@@ -66,7 +66,7 @@ const Card = ({
     <Link to={`/${url}`}>
       <Container fullPage={fullPage}>
         {fullPage && <P>Click to go HomePage</P>}
-        <Image fileName={imageFileName} />
+        {imageFileName && <Image fileName={imageFileName} />}
         <Title>{title}</Title>
         <Heading>Director: {director}</Heading>
         <Heading>Released: {moment(date).format('D MMM YYYY')}</Heading>
