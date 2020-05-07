@@ -8,6 +8,7 @@
 
 const path = require(`path`);
 const slash = require(`slash`);
+const stringToSlug = require('./src/helpers/stringToSlug');
 
 // Implement the Gatsby API “createPages”. This is
 // called after the Gatsby bootstrap is finished so you have
@@ -27,6 +28,7 @@ exports.createPages = async ({ graphql, actions }) => {
       swapi {
         allFilms {
           id
+          title
         }
       }
     }
@@ -53,7 +55,7 @@ exports.createPages = async ({ graphql, actions }) => {
       // as a template component. The `context` is
       // optional but is often necessary so the template
       // can query data specific to each page.
-      path: `/${film.id}/`,
+      path: `/films/${stringToSlug(film.title)}/`,
       component: slash(pageTemplate),
       context: {
         id: film.id,

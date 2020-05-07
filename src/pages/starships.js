@@ -1,14 +1,11 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 import styled from 'styled-components';
-import moment from 'moment';
 
 import Layout from '../components/layout/Layout';
 import SEO from '../components/SEO';
 import Card from '../components/card/Card';
 import CardContent from '../components/card/CardContent';
-
-import stringToSlug from '../helpers/stringToSlug';
 
 const CardsContainer = styled.div`
   width: 100%;
@@ -18,24 +15,23 @@ const CardsContainer = styled.div`
   flex-wrap: wrap;
 `;
 
-const IndexPage = ({ data }) => {
+const StarshipsPage = ({ data }) => {
   return (
     <Layout>
-      <SEO title="Home" />
+      <SEO title="Characters" />
       <CardsContainer>
-        {data.swapi.allFilms.map(film => {
+        {data.swapi.allStarships.map(starship => {
           return (
-            <Card key={film.title} url={`/films/${stringToSlug(film.title)}`}>
+            <Card key={starship.name}>
               <CardContent
-                clickable
-                imageCategory="poster"
-                imageFileName={film.episodeId.toString()}
-                title={film.title}
+                imageCategory="starship"
+                title={starship.name}
                 titleContentPairs={[
-                  { title: 'Director', content: film.director },
+                  { title: 'Class', content: starship.class },
+                  { title: 'Manufacturer', content: starship.manufacturer },
                   {
-                    title: 'Released',
-                    content: moment(film.releaseDate).format('D MMM YYYY'),
+                    title: 'Cargo Capacity',
+                    content: starship.cargoCapacity || 'Unknown',
                   },
                 ]}
               />
@@ -47,16 +43,17 @@ const IndexPage = ({ data }) => {
   );
 };
 
-export default IndexPage;
+export default StarshipsPage;
 
 export const pageQuery = graphql`
   query {
     swapi {
-      allFilms(orderBy: episodeId_ASC) {
-        title
-        director
-        episodeId
-        releaseDate
+      allStarships {
+        name
+        crew
+        class
+        cargoCapacity
+        manufacturer
       }
     }
   }
