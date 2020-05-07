@@ -13,6 +13,7 @@ const InputField = styled.input.attrs(props => {
   text-align: center;
   border-radius: 5px;
   border: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 
   &:focus {
     outline-color: orange;
