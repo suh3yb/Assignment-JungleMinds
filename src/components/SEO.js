@@ -80,6 +80,7 @@ function SEO({ description, lang, meta, title }) {
 
           a {
             text-decoration: none;
+            color: #eeeeee;
           }
         `}
       </style>

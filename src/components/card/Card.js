@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const Container = styled.div`
   border-radius: 5px;
-  margin: 0 30px 30px;
+  margin-bottom: 30px;
   padding: 30px;
   min-height: 400px;
   max-width: ${props => (props.fullPage ? '900px' : '400px')};
@@ -13,19 +13,22 @@ const Container = styled.div`
   color: black;
   box-shadow: 0 2px 5px black;
   transition: all 0.1s ease-in;
-  cursor: pointer;
+  cursor: ${props => (props.url ? 'pointer' : 'inherit')};
   display: inline-block;
   text-align: center;
 
   &:hover {
-    box-shadow: 0 4px 10px black;
+    box-shadow: ${props =>
+      props.url ? '0 4px 10px black' : '0 2px 5px black'};
   }
 `;
 
 const Card = ({ url, fullPage, children }) => {
   return url ? (
     <Link to={url}>
-      <Container fullPage={fullPage}>{children}</Container>
+      <Container fullPage={fullPage} url={url}>
+        {children}
+      </Container>
     </Link>
   ) : (
     <Container fullPage={fullPage}>{children}</Container>

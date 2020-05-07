@@ -12,16 +12,30 @@ const Container = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    height: 180px;
+    padding: 20px 0;
+  }
 `;
 
 const Nav = styled.nav`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+
+  & .active {
+    color: yellow;
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    text-align: center;
+  }
 `;
 
 const MenuItem = styled.div`
-  color: #eeeeee;
   font-size: 24px;
   font-weight: 700;
   margin: 0 10px;
@@ -36,17 +50,17 @@ const Header = () => {
         </MenuItem>
       </Link>
       <Nav>
-        <Link to="/">
-          <MenuItem>
+        <MenuItem>
+          <Link to="/" activeClassName="active">
             <p>Films</p>
-          </MenuItem>
-        </Link>
-        <Link to="/characters">
+          </Link>
+        </MenuItem>
+        <Link to="/characters" activeClassName="active">
           <MenuItem>
             <p>Characters</p>
           </MenuItem>
         </Link>
-        <Link to="/starships">
+        <Link to="/starships" activeClassName="active">
           <MenuItem>
             <p>Starships</p>
           </MenuItem>
