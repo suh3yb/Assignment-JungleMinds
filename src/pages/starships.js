@@ -31,7 +31,6 @@ const StarshipsPage = ({ data }) => {
       );
       setPageCount(Math.ceil(filteredShips.length / DISPLAY_COUNT));
     } else {
-      setCurrentPage(1);
       setShipsToDisplay(
         data.swapi.allStarships.slice(
           (currentPage - 1) * DISPLAY_COUNT,
@@ -44,6 +43,9 @@ const StarshipsPage = ({ data }) => {
 
   const handleInputChange = event => {
     setSearchInput(event.target.value);
+    if (event.target.value === '') {
+      setCurrentPage(1);
+    }
   };
 
   const pageNavClickHandler = pageNum => {

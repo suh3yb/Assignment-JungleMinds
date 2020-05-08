@@ -31,7 +31,6 @@ const CharactersPage = ({ data }) => {
       );
       setPageCount(Math.ceil(filteredCharacters.length / DISPLAY_COUNT));
     } else {
-      setCurrentPage(1);
       setPeopleToDisplay(
         data.swapi.allPersons.slice(
           (currentPage - 1) * DISPLAY_COUNT,
@@ -44,6 +43,9 @@ const CharactersPage = ({ data }) => {
 
   const handleInputChange = event => {
     setSearchInput(event.target.value);
+    if (event.target.value === '') {
+      setCurrentPage(1);
+    }
   };
 
   const pageNavClickHandler = pageNum => {
