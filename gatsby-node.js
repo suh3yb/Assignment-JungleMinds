@@ -26,7 +26,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   const result = await graphql(`
     {
       swapi {
-        allFils {
+        allFilms {
           id
           title
         }
