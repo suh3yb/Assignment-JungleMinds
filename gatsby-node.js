@@ -16,7 +16,7 @@ const stringToSlug = require('./src/helpers/stringToSlug');
 // create pages.
 // Will create pages for WordPress pages (route : /{slug})
 // Will create pages for WordPress posts (route : /post/{slug})
-exports.createPages = async ({ graphql, actions }) => {
+exports.createPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions;
   // The “graphql” function allows us to run arbitrary
   // queries against the local Gatsby GraphQL schema. Think of
@@ -26,7 +26,7 @@ exports.createPages = async ({ graphql, actions }) => {
   const result = await graphql(`
     {
       swapi {
-        allFilms {
+        allFils {
           id
           title
         }
@@ -37,7 +37,13 @@ exports.createPages = async ({ graphql, actions }) => {
   // Check for any errors
   if (result.errors) {
     console.error(result.errors);
+    reporter.panicOnBuild(
+      `Error while running GraphQL query from gatsby-node.js.`
+    );
+    return;
   }
+
+  console.log('aldkfjladjf;adfja;dlfksja;sdflkj;adlfkja;flkjdsa;lfkj');
 
   // Access query results via object destructuring
   const { allFilms } = result.data.swapi;

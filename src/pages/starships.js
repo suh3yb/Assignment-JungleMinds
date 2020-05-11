@@ -57,9 +57,9 @@ const StarshipsPage = ({ data }) => {
 
   return (
     <Layout>
-      <SEO title="Characters" />
+      <SEO title="Starships" />
       <SearchInput
-        searchFor="Characters"
+        searchFor="Starships"
         value={searchInput}
         onChange={handleInputChange}
       />
