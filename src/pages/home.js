@@ -9,8 +9,6 @@ import SearchInput from '../components/SearchInput';
 import Card from '../components/card/Card';
 import CardContent from '../components/card/CardContent';
 
-import Landing from '../components/landing/Landing';
-
 import stringToSlug from '../helpers/stringToSlug';
 
 const CardsContainer = styled.div`
@@ -21,11 +19,9 @@ const CardsContainer = styled.div`
   flex-wrap: wrap;
 `;
 
-const IndexPage = ({ data }) => {
+const HomePage = ({ data }) => {
   const [filmsToDisplay, setFilmsToDisplay] = useState(data.swapi.allFilms);
   const [searchInput, setSearchInput] = useState('');
-
-  console.log(data);
 
   useEffect(() => {
     if (searchInput) {
@@ -43,16 +39,14 @@ const IndexPage = ({ data }) => {
   };
 
   return (
-    // <Layout>
-    <>
+    <Layout>
       <SEO title="Home" />
-      {/* <SearchInput
+      <SearchInput
         searchFor="Films"
         value={searchInput}
         onChange={handleChange}
-      /> */}
-      <Landing data={data.swapi.allFilms} />
-      {/* <CardsContainer>
+      />
+      <CardsContainer>
         {filmsToDisplay.map(film => {
           return (
             <Card key={film.title} url={`/films/${stringToSlug(film.title)}`}>
@@ -72,13 +66,12 @@ const IndexPage = ({ data }) => {
             </Card>
           );
         })}
-      </CardsContainer> */}
-    </>
-    // </Layout>
+      </CardsContainer>
+    </Layout>
   );
 };
 
-export default IndexPage;
+export default HomePage;
 
 export const pageQuery = graphql`
   query {
