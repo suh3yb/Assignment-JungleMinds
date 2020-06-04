@@ -6,9 +6,8 @@
 
     Navigate into the root folder.
 
-    ```shell
-    npm install
-    npm run develop
+    ```bash
+    yarn && yarn develop
     ```
 
 1.  **Open the browser**
